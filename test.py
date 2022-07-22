@@ -35,11 +35,12 @@ def check(sequence):
     for i in range(0, len(sequence)):
         if not sequence[i-1].isdigit() and not sequence[i].isdigit():
             third_test = False
+            print('Error #3: "comandos juntos o sin número"')
+            break
 
     #Resultado final
     if not (first_test and second_test and third_test):
         result = False
-        print('Error #3: "comandos juntos o sin número"')
     
     return result
 
