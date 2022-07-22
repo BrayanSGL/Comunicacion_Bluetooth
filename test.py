@@ -1,4 +1,7 @@
-sequence_example = 'D55S4I10V50D2D5S7I200'
+from msilib import sequence
+
+
+sequence_example = '@D185S4I10V50D2#'
 motor_state = 'stop'
 
 
@@ -35,13 +38,13 @@ def check(sequence):
     for i in range(0, len(sequence)):
         if not sequence[i-1].isdigit() and not sequence[i].isdigit():
             third_test = False
-            print('Error #3: "comandos juntos o sin número"')
+            print('Error #3: "Comandos juntos o sin número"')
             break
 
-    #Resultado final
+    # Resultado final
     if not (first_test and second_test and third_test):
         result = False
-    
+
     return result
 
 
@@ -56,9 +59,17 @@ def analysis(sequence):
                     break
                 if new_sequence.isdigit():
                     value = int(new_sequence)
-            #Metodo del motor
+            # Metodo del motor
             print(letter, value)
 
 
-if check(sequence_example):
-    analysis(sequence_example)
+def unpacking(raw_sequence):
+    sequence = ''
+    if(raw_sequence.count('@') == 1) and (raw_sequence.count('#') == 1):
+        sequence = raw_sequence.strip("@#")
+    return sequence
+
+
+sequence = unpacking(sequence_example)
+if check(sequence):
+    analysis(sequence)
