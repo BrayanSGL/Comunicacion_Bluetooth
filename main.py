@@ -54,6 +54,8 @@ def run(letter, value):
 
     GPIO.output(IN1, GPIO.LOW)
     GPIO.output(IN2, GPIO.LOW)
+    server.send('Estado: Detenido')
+    time.sleep(1)
 
 
 def check(sequence):
