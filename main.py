@@ -92,8 +92,8 @@ def read(data):
     #print(data, str(length_data))
     sequence = unpacking(data)
     if sequence == 'R':
-        GPIO.output(IN1, GPIO.LOW)
-        GPIO.output(IN2, GPIO.HIGH)
+        GPIO.output(IN1, GPIO.HIGH)
+        GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Derecha')
 
     elif sequence == 'L':
