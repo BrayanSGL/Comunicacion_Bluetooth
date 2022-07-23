@@ -17,6 +17,7 @@ pwm.start(0)
 
 
 def run(letter, value):
+    print('entré', letter, value)
     pass
 
 
@@ -106,8 +107,8 @@ def read(data):
         GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Detenido')
 
-    '''if check(sequence):
-        analysis(sequence)'''
+    elif check(sequence):
+        analysis(sequence)
 
     '''if data == 'A':
         print('llegó una A')
