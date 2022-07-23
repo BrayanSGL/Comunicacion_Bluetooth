@@ -42,7 +42,7 @@ def check(sequence):
                 first_test = True
             else:
                 first_test = False
-                print('Error #1: "Letra no reconocida"')
+                server.send('Error #1: "Letra no reconocida"')
                 break
 
     # 2da. final con letra o inicio con número
@@ -50,13 +50,14 @@ def check(sequence):
     start_char = sequence[:1]
     if not end_char.isdigit() or start_char.isdigit():
         second_test = False
-        print('Error #2: "Secuencia con letra al final o número al principio"')
+        server.send(
+            'Error #2: "Secuencia con letra al final o número al principio"')
 
     # 3ra. comandos juntos o sin número
     for i in range(0, len(sequence)):
         if not sequence[i-1].isdigit() and not sequence[i].isdigit():
             third_test = False
-            print('Error #3: "Comandos juntos o sin número"')
+            server.send('Error #3: "Comandos juntos o sin número"')
             break
 
     # Resultado final
