@@ -11,6 +11,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(IN1, GPIO.OUT)
 GPIO.setup(IN2, GPIO.OUT)
 GPIO.setup(PWM, GPIO.OUT)
+GPIO.setwarnings(False)
 
 pwm = GPIO.PWM(PWM, 1000)
 pwm.start(0)
@@ -18,6 +19,7 @@ pwm.start(0)
 
 def run(letter, value):
     print('entré', letter, value)
+
     pass
 
 
@@ -76,7 +78,6 @@ def analysis(sequence):
                 if new_sequence.isdigit():
                     value = int(new_sequence)
             # Metodo del motor
-            print(letter, value)
             run(letter, value)
 
 
@@ -93,11 +94,13 @@ def read(data):
     #print(data, str(length_data))
     sequence = unpacking(data)
     if sequence == 'R':
+        pwm.ChangeDutyCycle(50)
         GPIO.output(IN1, GPIO.HIGH)
         GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Derecha')
 
     elif sequence == 'L':
+        pwm.ChangeDutyCycle(50)
         GPIO.output(IN1, GPIO.LOW)
         GPIO.output(IN2, GPIO.HIGH)
         server.send('Estado: Izquierda')
