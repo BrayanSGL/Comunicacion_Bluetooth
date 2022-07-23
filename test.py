@@ -1,7 +1,4 @@
-from msilib import sequence
-
-
-sequence_example = '@D185S4I10V50D2#'
+sequence_example = '@D154156485S4I10V50D5#'
 motor_state = 'stop'
 
 
