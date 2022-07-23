@@ -1,4 +1,3 @@
-from turtle import speed
 import RPi.GPIO as GPIO
 import time
 from bluedot.btcomm import BluetoothServer
@@ -27,29 +26,34 @@ def run(letter, value):
         GPIO.output(IN1, GPIO.HIGH)
         GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Derecha')
-        for i in range(value,0,-1):
+        for i in range(value, 0, -1):
             server.send(f'Estado: Derecha T-{i}s')
             time.sleep(1)
-        
+
     elif letter == 'I':
         pwm.ChangeDutyCycle(speed)
         GPIO.output(IN1, GPIO.LOW)
         GPIO.output(IN2, GPIO.HIGH)
-        for i in range(value,0,-1):
+        for i in range(value, 0, -1):
             server.send(f'Estado: Izquierda T-{i}s')
             time.sleep(1)
+
     elif letter == 'S':
         GPIO.output(IN1, GPIO.LOW)
         GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Detenido')
-        for i in range(value,0,-1):
+        for i in range(value, 0, -1):
             server.send(f'Estado: Detenido T-{i}s')
             time.sleep(1)
+
     elif letter == 'V':
         speed = int(value)
         pwm.ChangeDutyCycle(speed)
         server.send(f'Velocidad: {speed}%')
         time.sleep(2)
+
+    GPIO.output(IN1, GPIO.LOW)
+    GPIO.output(IN2, GPIO.LOW)
 
 
 def check(sequence):
