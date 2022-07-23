@@ -7,11 +7,11 @@ IN1 = 11
 IN2 = 13
 PWM = 12
 
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(IN1, GPIO.OUT)
 GPIO.setup(IN2, GPIO.OUT)
 GPIO.setup(PWM, GPIO.OUT)
-GPIO.setwarnings(False)
 
 pwm = GPIO.PWM(PWM, 1000)
 pwm.start(0)
@@ -94,13 +94,13 @@ def read(data):
     #print(data, str(length_data))
     sequence = unpacking(data)
     if sequence == 'R':
-        pwm.ChangeDutyCycle(50)
+        pwm.ChangeDutyCycle(100)
         GPIO.output(IN1, GPIO.HIGH)
         GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Derecha')
 
     elif sequence == 'L':
-        pwm.ChangeDutyCycle(50)
+        pwm.ChangeDutyCycle(100)
         GPIO.output(IN1, GPIO.LOW)
         GPIO.output(IN2, GPIO.HIGH)
         server.send('Estado: Izquierda')
