@@ -1,3 +1,4 @@
+from turtle import speed
 import RPi.GPIO as GPIO
 import time
 from bluedot.btcomm import BluetoothServer
@@ -6,6 +7,7 @@ from signal import pause
 IN1 = 11
 IN2 = 13
 PWM = 12
+speed = 100
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -18,9 +20,36 @@ pwm.start(0)
 
 
 def run(letter, value):
+    global speed
     print('entré', letter, value)
-
-    pass
+    if letter == 'D':
+        pwm.ChangeDutyCycle(speed)
+        GPIO.output(IN1, GPIO.HIGH)
+        GPIO.output(IN2, GPIO.LOW)
+        server.send('Estado: Derecha')
+        for i in range(value,0,-1):
+            server.send(f'Estado: Derecha T-{i}s')
+            time.sleep(1)
+        
+    elif letter == 'I':
+        pwm.ChangeDutyCycle(speed)
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.HIGH)
+        for i in range(value,0,-1):
+            server.send(f'Estado: Izquierda T-{i}s')
+            time.sleep(1)
+    elif letter == 'S':
+        GPIO.output(IN1, GPIO.LOW)
+        GPIO.output(IN2, GPIO.LOW)
+        server.send('Estado: Detenido')
+        for i in range(value,0,-1):
+            server.send(f'Estado: Detenido T-{i}s')
+            time.sleep(1)
+    elif letter == 'V':
+        speed = int(value)
+        pwm.ChangeDutyCycle(speed)
+        server.send(f'Velocidad: {speed}%')
+        time.sleep(2)
 
 
 def check(sequence):
@@ -42,7 +71,7 @@ def check(sequence):
                 first_test = True
             else:
                 first_test = False
-                server.send('Error #1: "Letra no reconocida"')
+                server.send('Error #1: "Letra no reconocida" ')
                 break
 
     # 2da. final con letra o inicio con número
@@ -51,13 +80,13 @@ def check(sequence):
     if not end_char.isdigit() or start_char.isdigit():
         second_test = False
         server.send(
-            'Error #2: "Secuencia con letra al final o número al principio"')
+            'Error #2: "Secuencia con letra al final o número al principio" ')
 
     # 3ra. comandos juntos o sin número
     for i in range(0, len(sequence)):
         if not sequence[i-1].isdigit() and not sequence[i].isdigit():
             third_test = False
-            server.send('Error #3: "Comandos juntos o sin número"')
+            server.send('Error #3: "Comandos juntos o sin número" ')
             break
 
     # Resultado final
@@ -90,18 +119,21 @@ def unpacking(raw_sequence):
 
 
 def read(data):
+    global speed
     data = data.strip()
     #length_data = len(data)
     #print(data, str(length_data))
     sequence = unpacking(data)
     if sequence == 'R':
-        pwm.ChangeDutyCycle(100)
+        speed = 100
+        pwm.ChangeDutyCycle(speed)
         GPIO.output(IN1, GPIO.HIGH)
         GPIO.output(IN2, GPIO.LOW)
         server.send('Estado: Derecha')
 
     elif sequence == 'L':
-        pwm.ChangeDutyCycle(100)
+        speed = 100
+        pwm.ChangeDutyCycle(speed)
         GPIO.output(IN1, GPIO.LOW)
         GPIO.output(IN2, GPIO.HIGH)
         server.send('Estado: Izquierda')
