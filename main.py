@@ -20,7 +20,7 @@ pwm.start(0)
 
 def run(letter, value):
     global speed
-    print('entré', letter, value)
+
     if letter == 'D':
         pwm.ChangeDutyCycle(speed)
         GPIO.output(IN1, GPIO.HIGH)
@@ -96,7 +96,6 @@ def check(sequence):
             server.send('Error #3: "Comandos juntos o sin número" ')
             break
 
-
     # 4ta. Velocidad invalida
     if third_test:
         for i in range(0, len(sequence)):
@@ -147,8 +146,7 @@ def unpacking(raw_sequence):
 def read(data):
     global speed
     data = data.strip()
-    #length_data = len(data)
-    #print(data, str(length_data))
+
     sequence = unpacking(data)
     if sequence == 'R':
         speed = 100
@@ -171,14 +169,6 @@ def read(data):
 
     elif check(sequence):
         analysis(sequence)
-
-    '''if data == 'A':
-        print('llegó una A')
-    elif data == 'B':
-        print('llegó una B')
-    else:
-        print('Llegó otra cosa')
-        server.send('Hola bebé')'''
 
 
 print('initializing server')
