@@ -109,7 +109,7 @@ def analysis(sequence):
             new_sequence = sequence[i+1:]
             for j in range(0, len(new_sequence)):
                 if not new_sequence[j].isdigit():
-                    value = new_sequence[:j]
+                    value = int(new_sequence[:j])
                     break
                 if new_sequence.isdigit():
                     value = int(new_sequence)
