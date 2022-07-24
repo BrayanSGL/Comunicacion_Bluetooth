@@ -63,6 +63,7 @@ def check(sequence):
     first_test = True
     second_test = True
     third_test = True
+    fourth_test = True
 
     # 1ra. letras correctas
     for i in range(0, len(sequence)):
@@ -95,8 +96,27 @@ def check(sequence):
             server.send('Error #3: "Comandos juntos o sin número" ')
             break
 
+
+    # 4ta. Velocidad invalida
+    if third_test:
+        for i in range(0, len(sequence)):
+            if not sequence[i].isdigit():
+                letter = sequence[i]
+                new_sequence = sequence[i+1:]
+                for j in range(0, len(new_sequence)):
+                    if not new_sequence[j].isdigit():
+                        value = int(new_sequence[:j])
+                        break
+                    if new_sequence.isdigit():
+                        value = int(new_sequence)
+
+                if letter == 'V' and (value > 100 or value < 20):
+                    fourth_test = False
+                    server.send('Error #4: "Velocidad fuera de rango"')
+                    break
+
     # Resultado final
-    if not (first_test and second_test and third_test):
+    if not (first_test and second_test and third_test and fourth_test):
         result = False
 
     return result
