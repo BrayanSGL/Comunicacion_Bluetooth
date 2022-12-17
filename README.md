@@ -31,6 +31,7 @@ Los comandos que puedes utilizar son:
 - 'I' para girar el motor hacia la izquierda.
 - 'S' para detener el motor.
 - 'V' para cambiar la velocidad del motor.
+
 Cada comando puede ir seguido de un número que indica el tiempo en segundos que durará la acción. Por ejemplo, para girar el motor hacia la derecha durante 5 segundos, debes enviar el comando 'D5'.
 
 El código incluye una función 'check' que valida si el comando enviado es válido y notifica al usuario en caso de que no lo sea. Los posibles errores que pueden ser detectados son: letras no reconocidas, secuencias que terminan en una letra o comienzan con un número, comandos juntos o sin número, velocidades inválidas y tiempos inválidos.
