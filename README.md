@@ -11,6 +11,7 @@ Para utilizar este código, es necesario tener instaladas las siguientes librer�
 
 - RPi.GPIO
 - bluedot
+
 Puedes instalar estas librerías utilizando el administrador de paquetes de Python, pip, de la siguiente manera:
 
 ```
