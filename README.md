@@ -42,3 +42,6 @@ Para girar el motor hacia la derecha durante 5 segundos a una velocidad del 50%,
 ```
 V50D5
 ```
+## Aplicación para el celular
+Puede descargar la aplicación para celular, para contrar los motores [aqui!](https://gallery.appinventor.mit.edu/?galleryid=11142d5b-d24f-44a4-95af-f588ec4db51c)
+
